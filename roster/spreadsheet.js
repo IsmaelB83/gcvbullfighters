@@ -33,10 +33,14 @@ loadSpreadsheet = URL => {
 
 convertToJson = (value) => {
     const flightData = value.split('\t');
+
+    const aux_report_date = flightData[0].split(' ')[0].split('/');
+    const aux_flight_date = flightData[2].split(' ')[0].split('/');
+
     return {
-        'report_date': new Date(flightData[0]),
+        'report_date': `${aux_report_date[2]}-${aux_report_date[1]}-${aux_report_date[0]}`,
         'nickname': flightData[1],
-        'flight_date': new Date(flightData[2]),
+        'flight_date': `${aux_flight_date[2]}-${aux_flight_date[1]}-${aux_flight_date[0]}`,
         'flight_type': flightData[3],
         'ag': parseInt(flightData[4]?flightData[4]:0),
         'aa': parseInt(flightData[5]?flightData[5]:0), 
@@ -47,7 +51,7 @@ convertToJson = (value) => {
         'result': flightData[10],
         'editor': flightData[11] == 'Editor',
         'aparato': flightData[12]
-    }
+    }  
 }
 
 module.exports = loadSpreadsheet;
