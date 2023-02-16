@@ -14,18 +14,6 @@ async function main() {
     // Load roster flights
     const data = await loadSpreadsheet(URL)
     console.log(`Entries in spreadsheet: ${data.length}`);
-    data.forEach(flight => {
-        flight.flight_type = 0
-        flight.ag = flight.ag ? flight.ag : 0;
-        flight.aa = flight.aa ? flight.aa : 0;
-        flight.naval = flight.naval ? flight.naval : 0;
-        flight.aar = flight.aar ? flight.aar : 0;
-        flight.apontaje = flight.apontaje ? flight.apontaje : 0;
-        flight.bonb = flight.bonb ? flight.bonb : 0;
-        flight.result = 0
-        flight.editor = false
-        flight.aparato = 0
-    });
     
     // Save into database
     const db = new Database();
@@ -41,7 +29,7 @@ async function main() {
             if (!result.length) {
                 const result2 = await db.query(`
                     INSERT INTO roster (report_date, nickname, flight_date, flight_type, ag, aa, naval, aar, apontaje, bonb, result, editor, aparato) 
-                    VALUES ('${flight.report_date}', '${flight.nickname}', '${flight.flight_date}', ${flight.flight_type}, ${flight.ag}, ${flight.aa}, ${flight.naval}, ${flight.aar}, ${flight.apontaje}, ${flight.bonb}, ${flight.result}, ${flight.editor}, ${flight.aparato})`
+                    VALUES ('${flight.report_date}', '${flight.nickname}', '${flight.flight_date}', '${flight.flight_type}', ${flight.ag}, ${flight.aa}, ${flight.naval}, ${flight.aar}, ${flight.apontaje}, ${flight.bonb}, '${flight.result}', ${flight.editor}, '${flight.aparato}')`
                 );
                 if (result2) contInserts += 1
             }
