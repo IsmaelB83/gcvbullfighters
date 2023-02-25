@@ -26,7 +26,7 @@ async function main() {
         // Execute a SQL query
         for (let i = 0; i < data.length; i++) {
             const flight = data[i];
-            const result = await db.query(`SELECT * FROM roster WHERE nickname = '${flight.nickname}' AND flight_date = '${flight.flight_date}'`)
+            const result = await db.query(`SELECT * FROM roster WHERE report_date = '${flight.report_date}' AND nickname = '${flight.nickname}' AND flight_date = '${flight.flight_date}'`)
             if (!result.length) {
                 try {
                         const result2 = await db.query(`

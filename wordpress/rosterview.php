@@ -41,6 +41,9 @@ get_header(); ?>
                     SELECT 
                         m.nickname AS nickname, 
                         m.avatar AS avatar, 
+                        m.capacitaciones AS capacitaciones, 
+                        MAX(r.flight_date), DATE_FORMAT(MAX(r.flight_date), '%d-%m-%Y') AS ultimo_vuelo,
+                        m.avatar AS avatar, 
                         m.role AS role, 
                         SUM(CASE WHEN r.flight_type = 'Mision' THEN 1 ELSE 0 END) AS misiones, 
                         SUM(CASE WHEN r.flight_type = 'Entrenamiento' THEN 1 ELSE 0 END) AS entrenamientos, 
@@ -53,6 +56,8 @@ get_header(); ?>
                     FROM 
                         members AS m
                         INNER JOIN roster AS r ON m.nickname = r.nickname 
+                    WHERE
+                        r.aparato <> 'PATO'
                     GROUP BY 
                         m.nickname
                     ORDER BY
@@ -64,30 +69,44 @@ get_header(); ?>
                     // Get the data for each card
                     $avatar = $roster->avatar;
                     $nickname = $roster->nickname;
+                    $capacitaciones = $roster->capacitaciones;
+                    $ultimo_vuelo = $roster->ultimo_vuelo;
                     $role = $roster->role;
                     $misiones = $roster->misiones;
                     $entrenamientos = $roster->entrenamientos;
+                    $vuelos = $roster->misiones + $roster->entrenamientos;
                     $rtb = $roster->rtb;
                     $kia = $roster->kia;
                     $mia = $roster->mia;
+                    $aa = $roster->aa;
+                    $ag = $roster->ag;
 
                     // Generate the HTML for the card using the data
-                    echo '<div class="roster">';
-                    echo '<div class="card roster-card">';
-                    echo '<div class="avatar">';
-                    echo '<img src="' . $avatar . '" alt="Avatar">';
-                    echo '<div class="overlay">';
-                    echo '<p>Ver más...</p>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '<h2>' . $nickname . '</h2>';
-                    echo '<p class="role role-'. $role .'">' . $role . '</p>';
-                    echo '<p><i class="fas fa-crosshairs stats-icon stats-icon--blue"></i><span>Misiones:</span> ' . $misiones . '</p>';
-                    echo '<p><i class="fas fa-crosshairs stats-icon stats-icon--blue"></i><span>Entrenamientos:</span> ' . $entrenamientos . '</p>';
-                    echo '<p><i class="fas fa-fighter-jet stats-icon stats-icon--red"></i><span>RTB:</span> ' . $rtb. '</p>';
-                    echo '<p><i class="fas fa-bullseye stats-icon stats-icon--red"></i><span>KIA:</span> ' . $kia . '</p>';
-                    echo '<p><i class="fas fa-bullseye stats-icon stats-icon--red"></i><span>MIA:</span> ' . $mia . '</p>';
-                    echo '</div>';
+                    echo '<div class="card">';
+                    echo '    <img src="'. $avatar .'" alt="profile-pic" class="profile">';
+                    echo '    <h1 class="callsign">' . $nickname . '</h1>';
+                    echo '    <p class="role">'. $role .'</p>';
+                    echo '    <p class="desc">'. $capacitaciones . '</p>';
+                    echo '    <button class="btn color-button">Ver más</button>                ';
+                    echo '    <hr>';
+                    echo '    <div class="card-content">';
+                    echo '        <div class="stat-column">';
+                    echo '            <button class="btn-stats"> <i class="fas fa-bullseye"></i></button>';
+                    echo '            <h2 class="title title-stats">'. $vuelos .'</h2>';
+                    echo '            <p class="text-stats">Vuelos</p>';
+                    echo '        </div>';
+                    echo '        <div class="stat-column">';
+                    echo '            <button class="btn-stats"><i class="fas fa-fighter-jet"></i></button>';
+                    echo '            <h2 class="title title-stats">'. $aa .'</h2>';
+                    echo '            <p class="text-stats">A/A Kills</p>';
+                    echo '        </div>';
+                    echo '        <div class="stat-column">';
+                    echo '            <button class="btn-stats"><i class="fas fa-crosshairs"></i></button>';
+                    echo '            <h2 class="title title-stats">'. $ag .'</h2>';
+                    echo '            <p class="text-stats">A/G Kills</p>';
+                    echo '        </div>';
+                    echo '    </div>';
+                    echo '    <p class="desc lastflight">Último vuelo '. $ultimo_vuelo. '</p>';
                     echo '</div>';
                 }
             ?>
@@ -104,19 +123,33 @@ get_header(); ?>
 <?php
 get_footer();
 
-/** <div class="card">
- *      <div class="avatar">
- *          <img src="https://gcvbullfighters.com/wp-content/uploads/2023/02/avatares_paco.webp" alt="Avatar">
- *          <div class="overlay">
- *              <p>Ver más...</p>
- *          </div>
- *      </div>
- *      <h2>Paco</h2>
- *      <p class="role role-bullfighter">Bullfighter</p>
- *      <p><i class="fas fa-clock stats-icon stats-icon--green"></i><span>Flight Time:</span> 15 hours</p>
- *      <p><i class="fas fa-crosshairs stats-icon stats-icon--blue"></i><span>Missions:</span> 22</p>
- *      <p><i class="fas fa-fighter-jet stats-icon stats-icon--red"></i><span>A/A Kills:</span> 10</p>
- *      <p><i class="fas fa-bullseye stats-icon stats-icon--red"></i><span>A/G Kills:</span> 5</p>
- *      </div>
- * </div>-->
-**/
+/* <div class="card card-bullfighter">
+    <img src="https://gcvbullfighters.com/wp-content/uploads/2023/02/avatares-paco.webp" alt="profile-pic" class="profile">
+    <h1 class="title text-bullfighter">PACO</h1>
+    <p class="role">BULLFIGHTER</p>
+    <div class="desc">
+        <p>F/A-18C | F-16C | F-14A/B (P)</p>
+    </div>
+    <button class="btn color-button">Ver más</button>                
+    <hr>
+    <div class="card-content">
+        <div class="stat-column">
+            <button class="btn-stats"> <i class="fas fa-crosshairs fa-2x"></i></button>
+            <h2 class="title text-bullfighter">16</h2>
+            <p class="text-stats">Vuelos</p>
+        </div>
+        <div class="stat-column">
+            <button class="btn-stats"><i class="fas fa-fighter-jet fa-2x"></i></button>
+            <h2 class="title text-bullfighter">12</h2>
+            <p class="text-stats">A/A Kills</p>
+        </div>
+        <div class="stat-column">
+            <button class="btn-stats"><i class="fas fa-bullseye fa-2x"></i></button>
+            <h2 class="title text-bullfighter">12</h2>
+            <p class="text-stats">A/G Kills</p>
+        </div>
+    </div>
+    <div class="desc">
+        <p>Último vuelo 12/02/2022</p>
+    </div>
+</div> */
