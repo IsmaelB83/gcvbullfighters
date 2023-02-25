@@ -51,6 +51,7 @@ get_header(); ?>
                         SUM(CASE WHEN r.result = 'RTB' THEN 1 ELSE 0 END) AS rtb,
                         SUM(CASE WHEN r.result = 'KIA' THEN 1 ELSE 0 END) AS kia,
                         SUM(CASE WHEN r.result = 'MIA' THEN 1 ELSE 0 END) AS mia,
+                        SUM(r.editor) AS editor,
                         SUM(r.aa) AS aa, 
                         SUM(r.ag) AS ag
                     FROM 
@@ -78,6 +79,7 @@ get_header(); ?>
                     $rtb = $roster->rtb;
                     $kia = $roster->kia;
                     $mia = $roster->mia;
+                    $editor = $roster->editor;
                     $aa = $roster->aa;
                     $ag = $roster->ag;
 
@@ -95,6 +97,13 @@ get_header(); ?>
                     echo '            <h2 class="title title-stats">'. $vuelos .'</h2>';
                     echo '            <p class="text-stats">Vuelos</p>';
                     echo '        </div>';
+                    if ($editor > 0) {
+                    echo '        <div class="stat-column">';
+                    echo '            <button class="btn-stats"><i class="fas fa-pencil-alt"></i></button>';
+                    echo '            <h2 class="title title-stats">'. $editor .'</h2>';
+                    echo '            <p class="text-stats">Editor</p>';
+                    echo '        </div>';
+                    }
                     echo '        <div class="stat-column">';
                     echo '            <button class="btn-stats"><i class="fas fa-fighter-jet"></i></button>';
                     echo '            <h2 class="title title-stats">'. $aa .'</h2>';
