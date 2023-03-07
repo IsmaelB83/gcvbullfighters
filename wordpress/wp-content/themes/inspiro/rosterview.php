@@ -58,7 +58,8 @@ get_header(); ?>
                         members AS m
                         INNER JOIN roster AS r ON m.nickname = r.nickname 
                     WHERE
-                        r.aparato <> 'PATO'
+                        r.aparato <> 'PATO' AND
+                        m.role = 'bullfighter'
                     GROUP BY 
                         m.nickname
                     ORDER BY
