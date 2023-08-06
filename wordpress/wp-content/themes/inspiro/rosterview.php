@@ -4,7 +4,7 @@
  */
 
 function my_custom_template_styles() {
-    wp_enqueue_style( 'my-custom-template-style', get_template_directory_uri() . '/css/rosterview.css', array(), '1.0', 'all' );
+    wp_enqueue_style( 'my-custom-template-style', get_template_directory_uri() . '/css/custom.css', array(), '1.0', 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'my_custom_template_styles' );
 
@@ -84,34 +84,38 @@ get_header(); ?>
                     $aa = $roster->aa;
                     $ag = $roster->ag;
 
+                    $page_id = 468;
+                    $permalink = get_permalink($page_id);
+                    $link_with_callsign = add_query_arg(array('callsign' => $nickname), $permalink);
+
                     // Generate the HTML for the card using the data
                     echo '<div class="card">';
-                    echo '    <img src="'. $avatar .'" alt="profile-pic" class="profile">';
+                    echo '    <a href='. $link_with_callsign .'><img src="'. $avatar .'" alt="profile-pic" class="profile"></a>';
                     echo '    <h1 class="callsign">' . $nickname . '</h1>';
                     echo '    <p class="role">'. $role .'</p>';
                     echo '    <p class="desc">'. $capacitaciones . '</p>';
-                    echo '    <button class="btn color-button">Ver más</button>                ';
+                    echo '    <a href='. $link_with_callsign .' class="btn color-button">Ver más</a>';
                     echo '    <hr>';
                     echo '    <div class="card-content">';
                     echo '        <div class="stat-column">';
-                    echo '            <button class="btn-stats"> <i class="fas fa-bullseye"></i></button>';
+                    echo '            <span class="btn-stats"><i class="fas fa-bullseye"></i></span>';
                     echo '            <h2 class="title title-stats">'. $vuelos .'</h2>';
                     echo '            <p class="text-stats">Vuelos</p>';
                     echo '        </div>';
                     if ($editor > 0) {
                     echo '        <div class="stat-column">';
-                    echo '            <button class="btn-stats"><i class="fas fa-pencil-alt"></i></button>';
+                    echo '            <span class="btn-stats"><i class="fas fa-pencil-alt"></i></span>';
                     echo '            <h2 class="title title-stats">'. $editor .'</h2>';
                     echo '            <p class="text-stats">Editor</p>';
                     echo '        </div>';
                     }
                     echo '        <div class="stat-column">';
-                    echo '            <button class="btn-stats"><i class="fas fa-fighter-jet"></i></button>';
+                    echo '            <span class="btn-stats"><i class="fas fa-fighter-jet"></i></span>';
                     echo '            <h2 class="title title-stats">'. $aa .'</h2>';
                     echo '            <p class="text-stats">A/A Kills</p>';
                     echo '        </div>';
                     echo '        <div class="stat-column">';
-                    echo '            <button class="btn-stats"><i class="fas fa-crosshairs"></i></button>';
+                    echo '            <span class="btn-stats"><i class="fas fa-crosshairs"></i></span>';
                     echo '            <h2 class="title title-stats">'. $ag .'</h2>';
                     echo '            <p class="text-stats">A/G Kills</p>';
                     echo '        </div>';
@@ -132,34 +136,3 @@ get_header(); ?>
 
 <?php
 get_footer();
-
-/* <div class="card card-bullfighter">
-    <img src="https://gcvbullfighters.com/wp-content/uploads/2023/02/avatares-paco.webp" alt="profile-pic" class="profile">
-    <h1 class="title text-bullfighter">PACO</h1>
-    <p class="role">BULLFIGHTER</p>
-    <div class="desc">
-        <p>F/A-18C | F-16C | F-14A/B (P)</p>
-    </div>
-    <button class="btn color-button">Ver más</button>                
-    <hr>
-    <div class="card-content">
-        <div class="stat-column">
-            <button class="btn-stats"> <i class="fas fa-crosshairs fa-2x"></i></button>
-            <h2 class="title text-bullfighter">16</h2>
-            <p class="text-stats">Vuelos</p>
-        </div>
-        <div class="stat-column">
-            <button class="btn-stats"><i class="fas fa-fighter-jet fa-2x"></i></button>
-            <h2 class="title text-bullfighter">12</h2>
-            <p class="text-stats">A/A Kills</p>
-        </div>
-        <div class="stat-column">
-            <button class="btn-stats"><i class="fas fa-bullseye fa-2x"></i></button>
-            <h2 class="title text-bullfighter">12</h2>
-            <p class="text-stats">A/G Kills</p>
-        </div>
-    </div>
-    <div class="desc">
-        <p>Último vuelo 12/02/2022</p>
-    </div>
-</div> */

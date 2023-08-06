@@ -5,13 +5,13 @@ networks:
 
 services:
   mysql:
-    image: mysql:5.7
+    image: biarms/mysql:5.7
     container_name: bullfighters-mysql
     tty: true
     ports:
         - "4208:3306"
     volumes:
-        - "/var/libclea/mysql/:/var/lib/mysql"
+        - ~/Code/gcvbullfighters/mysql/:/var/lib/mysql
     environment:
         MYSQL_ROOT_PASSWORD: 1234
         MYSQL_DATABASE: bullfighters
@@ -24,9 +24,9 @@ services:
       image: wordpress:latest
       container_name: bullfighters-wordpress
       ports:
-          - "4282:80"
+          - "80:80"
       volumes:
-          - /var/www/html/:/var/www/html
+          - ~/Code/gcvbullfighters/www:/var/www/html
       environment:
           WORDPRESS_DB_USER: loken
           WORDPRESS_DB_PASSWORD: 1234

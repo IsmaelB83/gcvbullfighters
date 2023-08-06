@@ -26,33 +26,33 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-        <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'inspiro' ); ?></a>
+	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'inspiro' ); ?></a>
 
-        <header id="masthead" class="site-header" role="banner">
-                <?php get_template_part( 'template-parts/navigation/navigation', 'primary' ); ?>
-        </header><!-- #masthead -->
+	<header id="masthead" class="site-header" role="banner">
+		<?php get_template_part( 'template-parts/navigation/navigation', 'primary' ); ?>
+	</header><!-- #masthead -->
 
     <?php
         $hero_show        = inspiro_get_theme_mod( 'hero_enable' );
     ?>
 
-        <?php
-        // Display custom header only on first page.
+	<?php
+	// Display custom header only on first page.
 
     if (!is_page_template( 'page-templates/homepage-no-hero.php' )) {
-        if ( isset( $paged ) && $paged < 2 && $hero_show ) {
-                if ( is_front_page() && is_home() && has_header_image() ) { // Default homepage.
-                        get_template_part( 'template-parts/header/header', 'image' );
-                } elseif ( is_front_page() && has_header_image() ) { // static homepage.
-                        get_template_part( 'template-parts/header/header', 'image' );
-                } elseif ( is_page() && inspiro_is_frontpage() && has_header_image() ) {
-                        get_template_part( 'template-parts/header/header', 'image' );
-                } elseif ( is_page_template( 'page-templates/homepage-builder-bb.php' ) && has_header_image() ) {
-                        get_template_part( 'template-parts/header/header', 'image' );
-                }
-        }
+    	if ( isset( $paged ) && $paged < 2 && $hero_show ) {
+    		if ( is_front_page() && is_home() && has_header_image() ) { // Default homepage.
+    			get_template_part( 'template-parts/header/header', 'image' );
+    		} elseif ( is_front_page() && has_header_image() ) { // static homepage.
+    			get_template_part( 'template-parts/header/header', 'image' );
+    		} elseif ( is_page() && inspiro_is_frontpage() && has_header_image() ) {
+    			get_template_part( 'template-parts/header/header', 'image' );
+    		} elseif ( is_page_template( 'page-templates/homepage-builder-bb.php' ) && has_header_image() ) {
+    			get_template_part( 'template-parts/header/header', 'image' );
+    		}
+    	}
     }
-        ?>
+	?>
 
-        <div class="site-content-contain">
-                <div id="content" class="site-content">
+	<div class="site-content-contain">
+		<div id="content" class="site-content">
