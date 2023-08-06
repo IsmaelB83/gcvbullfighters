@@ -1,4 +1,96 @@
-.maion {
+.main {
+    display: flex;
+    flex-direction: column;
+    font-family: Roboto;
+}
+
+.pilot-main {
     display: flex;
     flex-direction: row;
+    padding: 10px;
+}
+
+.pilot-main-avatar {
+    text-align: center;
+    padding: 10px;
+}
+
+.pilot-main-avatar img {
+    border-radius: 100%;
+    width: 180px;
+}
+
+.pilot-main-info {
+    padding: 10px;
+}
+
+.capacitaciones {
+    display: flex;
+    flex-direction: row;
+}
+
+.capacitaciones-plane {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.capacitaciones-plane img {
+    width: 120px;
+    height: 60px;
+}
+
+.pilot-stats1, .pilot-stats2, .pilot-medals {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+/* Stats */
+.stat-column { 
+    width: 200px;
+}
+
+.btn-stats {
+    border-radius:50%;
+    border: none;
+    height: 50px;
+    width: 50px;
+    color:#ffffff;
+    font-size: 25px;
+    line-height: 25px;
+    box-shadow: 0 13px 26px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.16);
+    background: linear-gradient(to bottom right, #6452E9, #639FF9);
+    padding: 0;
+}
+
+.title-stats {
+    margin-top: 10px;
+    margin-bottom: 0 !important;
+}
+
+.text-stats {
+    font-size: 14px !important;
+    font-weight: 100 !important;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.btn-stats:hover ~ .title-stats { 
+    color: #0BB4AA !important; 
+    font-weight: bold !important;
+}
+
+.btn-stats:hover ~ .text-stats { 
+    color: #0BB4AA !important; 
+    font-weight: bold !important;
+}
+
+hr {
+    border-color:#7C8097;
+    width:90%;
+    margin-top:24px;
+    margin-bottom:24px;
 }
