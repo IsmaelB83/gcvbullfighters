@@ -55,8 +55,8 @@ get_header(); ?>
                         SUM(r.aa) AS aa, 
                         SUM(r.ag) AS ag
                     FROM 
-                        members AS m
-                        INNER JOIN roster AS r ON m.nickname = r.nickname 
+                        gcv_zmembers AS m
+                        INNER JOIN gcv_zroster AS r ON m.nickname = r.nickname 
                     WHERE
                         r.aparato <> 'PATO' AND
                         m.role = 'bullfighter'
@@ -124,6 +124,8 @@ get_header(); ?>
                     echo '</div>';
                 }
             ?>
+
+            </div>
             
 		</main><!-- #main -->
                 
