@@ -4,7 +4,7 @@
  */
 
 function my_custom_template_styles() {
-    wp_enqueue_style( 'my-custom-template-style', get_template_directory_uri() . '/css/custom.css', array(), '1.0', 'all' );
+    wp_enqueue_style( 'my-custom-template-style', get_template_directory_uri() . '/css/service-history.css', array(), '1.0', 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'my_custom_template_styles' );
 
@@ -37,6 +37,7 @@ get_header();
 
 <?php endif ?>
         <main id="main" class="site-main" role="main">
+        <div class="roster">
 			<?php
 			while ( have_posts() ) :
 				the_post();
@@ -50,9 +51,8 @@ get_header();
 			endwhile; // End the loop.
 			?>
 
-            <div class="roster">
-
             <?php
+            
                 // Get the database connection
                 global $wpdb;
                 // Get the callsign
@@ -84,74 +84,153 @@ get_header();
                         members AS m
                         INNER JOIN roster AS r ON m.nickname = r.nickname 
                     WHERE
-                        r.aparato <> 'PATO' AND
-                        m.role = 'bullfighter' AND
-                        m.nickname = '$callsign'
-                    GROUP BY 
-                        m.nickname
-                    ORDER BY
-                        total DESC" 
+                        m.nickname = '$callsign'" 
                 );
 
-                // Generate the HTML for each card
-                foreach ( $roster_query as $roster ) {
-                    // Get the data for each card
-                    $avatar = $roster->avatar;
-                    $nickname = $roster->nickname;
-                    $capacitaciones = $roster->capacitaciones;
-                    $ultimo_vuelo = $roster->ultimo_vuelo;
-                    $role = $roster->role;
-                    $misiones = $roster->misiones;
-                    $entrenamientos = $roster->entrenamientos;
-                    $vuelos = $roster->misiones + $roster->entrenamientos;
-                    $rtb = $roster->rtb;
-                    $kia = $roster->kia;
-                    $mia = $roster->mia;
-                    $editor = $roster->editor;
-                    $aa = $roster->aa;
-                    $ag = $roster->ag;
-
-                    $page_id = 468;
-                    $permalink = get_permalink($page_id);
-                    $link_with_callsign = add_query_arg(array('callsign' => $nickname), $permalink);
+                // Get the data for the pilot
+                $avatar = $roster_query[0]->avatar;
+                $nickname = $roster_query[0]->nickname;
+                $capacitaciones = $roster_query[0]->capacitaciones;
+                $ultimo_vuelo = $roster_query[0]->ultimo_vuelo;
+                $role = $roster_query[0]->role;
+                $misiones = $roster_query[0]->misiones;
+                $entrenamientos = $roster_query[0]->entrenamientos;
+                $vuelos = $roster_query[0]->misiones + $roster_query[0]->entrenamientos;
+                $rtb = $roster_query[0]->rtb;
+                $kia = $roster_query[0]->kia;
+                $mia = $roster_query[0]->mia;
+                $editor = $roster_query[0]->editor;
+                $aa = $roster_query[0]->aa;
+                $ag = $roster_query[0]->ag;
                     
-                    // Generate the HTML for the card using the data
-                    echo '<div class="card">';
-                    echo '    <a href='. $link_with_callsign .'><img src="'. $avatar .'" alt="profile-pic" class="profile"></a>';
-                    echo '    <h1 class="callsign">' . $nickname . '</h1>';
-                    echo '    <p class="role">'. $role .'</p>';
-                    echo '    <p class="desc">'. $capacitaciones . '</p>';
-                    echo '    <a href='. $link_with_callsign .' class="btn color-button">Ver más</a>';
-                    echo '    <hr>';
-                    echo '    <div class="card-content">';
-                    echo '        <div class="stat-column">';
-                    echo '            <span class="btn-stats"><i class="fas fa-bullseye"></i></span>';
-                    echo '            <h2 class="title title-stats">'. $vuelos .'</h2>';
-                    echo '            <p class="text-stats">Vuelos</p>';
-                    echo '        </div>';
-                    if ($editor > 0) {
-                    echo '        <div class="stat-column">';
-                    echo '            <span class="btn-stats"><i class="fas fa-pencil-alt"></i></span>';
-                    echo '            <h2 class="title title-stats">'. $editor .'</h2>';
-                    echo '            <p class="text-stats">Editor</p>';
-                    echo '        </div>';
-                    }
-                    echo '        <div class="stat-column">';
-                    echo '            <span class="btn-stats"><i class="fas fa-fighter-jet"></i></span>';
-                    echo '            <h2 class="title title-stats">'. $aa .'</h2>';
-                    echo '            <p class="text-stats">A/A Kills</p>';
-                    echo '        </div>';
-                    echo '        <div class="stat-column">';
-                    echo '            <span class="btn-stats"><i class="fas fa-crosshairs"></i></span>';
-                    echo '            <h2 class="title title-stats">'. $ag .'</h2>';
-                    echo '            <p class="text-stats">A/G Kills</p>';
-                    echo '        </div>';
-                    echo '    </div>';
-                    echo '    <p class="desc lastflight">Último vuelo '. $ultimo_vuelo. '</p>';
-                    echo '</div>';
-                }
+                // Generate the HTML for the pilot info using the data
+                echo '<div class="pilot-main">';
+                echo '    <div class="pilot-main-avatar">';
+                echo '        <img src="../../images/avatars/avatares_macaci.webp" alt="profile-pic" class="profile">';
+                echo '        <h1 class="callsign">Macaci</h1>    ';
+                echo '        <p class="role">bullfighter</p>     ';
+                echo '    </div>';
+                echo '    <div class="pilot-main-info">';
+                echo '        <p class="desc">Miembro desde<span> 01/11/2022</span></p>';
+                echo '        <p class="desc">Último vuelo<span> 01/07/2023</span></p>';
+                echo '        <p class="desc">Capacitaciones</p>';
+                echo '        <div class="capacitaciones">';
+                echo '            <div class="capacitaciones-plane">';
+                echo '                <img src="../../images/icons-v2/f18-icon.png" alt="">';
+                echo '            </div>';
+                echo '        </div>';
+                echo '    </div>';
+                echo '</div>';
+                echo '<div class="pilot-stats">';
+                echo '    <h2 class="title">Vuelos</h2>';
+                echo '    <div class="stats">';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-plane-arrival"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">RTB</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-parachute-box"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">Eyectado</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-search-location"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">MIA</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-skull-crossbones"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">KIA</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-kiwi-bird"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">Patito</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-pencil-alt"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">Editor</p>  ';
+                echo '        </div>';
+                echo '    </div>';
+                echo '</div>';
+                echo '<div class="pilot-stats">';
+                echo '    <h2 class="title">Estadísticas</h2>';
+                echo '    <div class="stats">';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-oil-can"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">AAR</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-water"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">Apontaje</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-fighter-jet"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">A/A</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-crosshairs"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">A/G</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-ship"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">Naval</p>  ';
+                echo '        </div>';
+                echo '        <div class="stat-column">';
+                echo '            <button class="btn-stats"> ';
+                echo '                <i class="fas fa-users-slash"></i>';
+                echo '            </button>';
+                echo '            <h2 class="title title-stats">30</h2>';
+                echo '            <p class="text-stats">BonB</p>  ';
+                echo '        </div>';
+                echo '    </div>     ';
+                echo '</div>';
+                echo '<div class="pilot-stats">';
+                echo '    <h2 class="title">Condecoraciones</h2>';
+                echo '    <div class="stats">';
+                echo '        <div class="medal">';
+                echo '            <img src="../../images/medals/Medalla_01.jpg" alt="">';
+                echo '            <div class="medal-info">';
+                echo '                <p>14/04/2023</p>';
+                echo '                <p>Medalla al honor</p>';
+                echo '                <p>Obtenida por salvar a 3 pilotos en combate</p>';
+                echo '            </div>';
+                echo '        </div>';
+                echo '    </div>';
+                echo '</div>';
             ?>
             
+            </div>
 		</main><!-- #main -->
                 
         <?php if ( ( is_page() && ! inspiro_is_frontpage() ) && ! has_post_thumbnail( get_queried_object_id() ) ) : ?>

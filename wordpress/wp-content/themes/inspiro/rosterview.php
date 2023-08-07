@@ -4,7 +4,7 @@
  */
 
 function my_custom_template_styles() {
-    wp_enqueue_style( 'my-custom-template-style', get_template_directory_uri() . '/css/custom.css', array(), '1.0', 'all' );
+    wp_enqueue_style( 'my-custom-template-style', get_template_directory_uri() . '/css/rosterview.css', array(), '1.0', 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'my_custom_template_styles' );
 
