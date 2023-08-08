@@ -1,23 +1,68 @@
-.main {
+/* Containers and main */
+.roster {
+    font-family: Roboto;
+    justify-items: left;
+    align-items: center;
+    padding: 20px;
+    padding-top: 0;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+/* Each row of pilot information */
+.pilot-info {
     display: flex;
     flex-direction: column;
-    font-family: Roboto;
+}
+
+.pilot-stats {
+    margin: 15px 0 25px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.pilot-stats--start {
+    margin: 15px 0 25px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    text-align: center;
+}
+
+.stat { 
+    margin-top: 10px;
+    min-width: 100px;
 }
 
 .pilot-main {
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .pilot-main-avatar {
     text-align: center;
-    padding: 10px;
+    align-self: flex-start;
+    margin-left: 20px;
 }
 
-
-.pilot-main-info {
+.pilot-main-text {
+    flex: 1;
     padding: 10px;
+    margin-left: 10px;
+}
+
+.pilot-main-text .desc {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
 }
 
 .capacitaciones {
@@ -26,31 +71,13 @@
 }
 
 .capacitaciones-plane {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-}
-
-.capacitaciones-plane img {
-    width: 110px;
-    height: 55px;
+    width: 150px;
+    height: 75px;
     margin: 0;
 }
 
-.pilot-stats {
-    display: flex;
-    flex-direction: column;
-}
-
-.stats {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-}
-
 .medal {
+    margin-top: 10px;
     width: 50%;
     text-align: left;
     display: flex;
@@ -64,18 +91,16 @@
 
 .medal-info p {
     margin: 0;
-    font-size: 12px !important;
-    font-weight: 300 !important;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.medal-info-bold {
+    font-weight: bold !important;
 }
 
 .medal img {
     width: 80px;
-    height: 40px;
-}
-
-/* Stats */
-.stat-column { 
-    width: 200px;
 }
 
 .btn-stats {
@@ -89,11 +114,6 @@
     box-shadow: 0 13px 26px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.16);
     background: linear-gradient(to bottom right, #6452E9, #639FF9);
     padding: 0;
-}
-
-.title-stats {
-    margin-top: 10px;
-    margin-bottom: 0 !important;
 }
 
 .text-stats {
@@ -139,7 +159,7 @@ hr {
 .title {
     font-weight: 300 !important;
     font-size: 20px !important;
-    margin: 10px 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     text-transform: uppercase !important;
 }
@@ -162,4 +182,30 @@ hr {
     margin-left: 10px;
     font-size: 13px;
     font-weight: 300;
+}
+
+.title-stats {
+    margin: 10px 0 0 0 !important;
+}
+
+/* Media query for screens with width less than 600px */
+@media (max-width: 600px) {
+    .pilot-main {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    .pilot-main-text {
+        width: 100%;
+        text-align: left;
+        margin: 0;
+    }
+
+    .pilot-main-avatar {
+        width: 100%;
+    }
+
+    .medal {
+        width: 100% !important;
+    }
 }

@@ -132,9 +132,9 @@ get_header();
 
                 // Generate the HTML for the pilot info using the data
                 echo '<div class="pilot-info">';
-                echo '    <h2 class="title">HOJA DE SERVICIO</h2>';
                 echo '    <div class="pilot-main">';
                 echo '        <div class="pilot-main-text">';
+                echo '            <h2 class="title">HOJA DE SERVICIO</h2>';
                 echo '            <p class="desc">Callsign<span> '. $callsign .'</span></p>';
                 echo '            <p class="desc">Rol<span> '. $role .'</span></p>';
                 echo '            <p class="desc">Horas de vuelo oficial<span> '. $horas_vuelo .'</span></p>';
@@ -156,7 +156,6 @@ get_header();
                     $sanitizedCapacitacion = str_replace(array('/', '-', '(', ')', ' '), '', $capacitacion);
                 echo '        <div class="stat">';
                 echo '            <img class="capacitaciones-plane" src="http://localhost/wp-content/uploads/2023/08/'. $sanitizedCapacitacion .'-icon.png" alt="">';
-                echo '            <h2 class="title title-stats">'. $capacitacion .'</h2>';
                 echo '        </div>';
                 }
                 echo '    </div>';
