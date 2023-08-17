@@ -26,11 +26,11 @@ async function main() {
         // Execute a SQL query
         for (let i = 0; i < data.length; i++) {
             const flight = data[i];
-            const result = await db.query(`SELECT * FROM roster WHERE report_date = '${flight.report_date}' AND nickname = '${flight.nickname}' AND flight_date = '${flight.flight_date}'`)
+            const result = await db.query(`SELECT * FROM gcv_zroster WHERE report_date = '${flight.report_date}' AND nickname = '${flight.nickname}' AND flight_date = '${flight.flight_date}'`)
             if (!result.length) {
                 try {
                         const result2 = await db.query(`
-                                INSERT INTO roster (report_date, nickname, flight_date, flight_type, ag, aa, naval, aar, apontaje, bonb, result, editor, aparato) 
+                                INSERT INTO gcv_zroster (report_date, nickname, flight_date, flight_type, ag, aa, naval, aar, apontaje, bonb, result, editor, aparato) 
                                 VALUES ('${flight.report_date}', '${flight.nickname}', '${flight.flight_date}', '${flight.flight_type}', ${flight.ag}, ${flight.aa}, ${flight.naval}, ${flight.aar}, ${flight.apontaje}, ${flight.bonb}, '${flight.result}', ${flight.editor}, '${flight.aparato}')`
                         );
                         inserts += 1
