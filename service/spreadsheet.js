@@ -86,6 +86,12 @@ aparatoToCode = aparato => {
             return 'AH64C'
         case 'A-10C':
             return 'A10C'
+        case 'F-15E (piloto)':
+            return 'F15EP'
+        case 'ATC / GCI / AWACS':
+            return 'CONT'
+        case 'F-1':
+            return 'F1'
         default:
             return '-'
     }
