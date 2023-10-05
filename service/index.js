@@ -27,7 +27,7 @@ async function main() {
         for (let i = 0; i < data.length; i++) {
             const flight = data[i];
             const result = await db.query(`SELECT * FROM gcv_zroster WHERE report_date = '${flight.report_date}' AND nickname = '${flight.nickname}' AND flight_date = '${flight.flight_date}'`)
-            if (!result.length) {
+            if (!result.length && !flight.nickname.startsWith('--') ) {
                 try {
                         const result2 = await db.query(`
                                 INSERT INTO gcv_zroster (report_date, nickname, flight_date, flight_type, ag, aa, naval, aar, apontaje, bonb, result, editor, aparato) 
@@ -39,6 +39,7 @@ async function main() {
                 }
             }
         }
+        await db.query(`DELETE FROM gcv_zroster WHERE nickname LIKE '--%'`);
         console.log(`Entries added to database: ${inserts}`);
         // Close the connection to the MySQL server
         await db.close();
