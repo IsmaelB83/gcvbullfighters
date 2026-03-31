@@ -77,7 +77,9 @@ aparatoToCode = aparato => {
         case 'AV-8B':
             return 'AV8B'
         case 'F-14A/B':
-            return 'F14'
+            return 'F14P'
+	case 'F-14A/B (piloto)':
+            return 'F14P'
         case 'F-14A/B (RIO)':
             return 'RIO'
         case 'AH-64 (piloto)':
@@ -86,6 +88,12 @@ aparatoToCode = aparato => {
             return 'AH64C'
         case 'A-10C':
             return 'A10C'
+	case 'F-15E (piloto)':
+	    return 'F15EP'
+        case 'ATC / GCI / AWACS':
+            return 'CONT'
+	case 'F-1':
+	    return 'F1'
         default:
             return '-'
     }
